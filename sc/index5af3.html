@@ -1,0 +1,92 @@
+var $=jQuery
+// Create new object.
+function objectAdd_post(inx)
+	// 1. Show the object list.
+	// 2. After Click on the specific object. create it.
+	//	If it's page/template goto edit page.
+	//	If it's gadget add it to the page immeditaly.
+	{
+	var url='?!=newObjectList&objectType=' + inx.objectType;
+	if (inx.zoneId) url+='&zoneId=' + inx.zoneId;
+	
+	floatShow({url:url})
+
+	if (inx.objectType=='gadget')
+		{
+		$('.objectAddSelect').die('click').live('click',function (){
+                        var respon=$.ajax({url:$(this).attr('href'),cache:false,async:false}).responseText;
+			gadgetAddToZone(inx.zoneId,respon);
+			floatClose();
+			});
+		}
+	else
+		{
+		$('.objectAddSelect').die('click').live('click',function (){
+		   var respon=$.ajax({url:$(this).attr('href'),cache:false,async:false}).responseText;
+		   document.location=('?i=admObject&objectId=' + respon + '&edit=parameters&objectType=' + inx.objectType)
+			});
+		}
+	}	
+// Delete object.
+function objectDelete_post(inx)
+	{
+	var url='?!=deleteObject&objectType=' + inx.objectType + '&objectId=' + inx.objectId;
+	if (inx.zoneId) url+='&zoneId=' + inx.zoneId;
+	$.ajax({url:url,cache:false,async:false});
+	if (inx.objectType=='gadget')
+		{
+		$('#gadget-' + inx.objectId).remove();
+		}
+	else
+		{
+		alert('deleted OK!');
+		}
+	}	
+
+// When clicking on the link "Add object" (page/template/gadget)
+function objectAdd_click(e)
+	{
+	var objectType=$(this).attr('tag');
+	objectAdd_post({objectType:objectType,zoneId:$(this).attr('zoneId')});
+	}
+
+function objectDelete_click(elm)
+	{
+	if (!confirm('Are you sure DELETE?')) return false;
+	var objectType=$(elm).attr('tag');
+	var objectId=$(elm).attr('objectId');
+	objectDelete_post({objectId:objectId,objectType:objectType,zoneId:$(elm).attr('zoneId')});
+	}
+
+
+// Refresh the gadget from the server
+function gadgetRefresh(gadgetId)
+{
+	$('div#gadget-' + gadgetId).load('?!=gdgGet&gadgetId=' + gadgetId);
+}
+
+// Add a gadget from the server to the specific zone.
+function gadgetAddToZone(zoneId,gadgetId)
+{
+	$('div#zone-' + zoneId + ' .gdgPlaceForNew').before("<div id=gadget-" + gadgetId + ">gadgetBeforeUpdate</div>")
+	gadgetRefresh(gadgetId);
+}
+
+
+//קישור הוספת אובייקט
+$(function () {$(".objectAdd").die('click').live('click',objectAdd_click)});
+
+
+//	This function return the HTML of the Gadget ToolTip.
+function toolTip_gadget(elm)
+	{
+	$elm=$(elm);
+	var html;
+	var objectId=$elm.attr('gadgetId')
+	html='<div style="background-color:#666;color:white;padding:15px;">';
+	html+= '<a href="http://new.nofayalon.org.domains.bua.co.il/?i=admObject&objectId=' +objectId + '&edit=parameters&objectType=gadget">ערוך פרטים</a><br/>';
+	html+= '<a href="?i=admObject&objectId=' + objectId + '&edit=htmlnew&objectType=gadget">ערוך HTML</a><br/>';
+	html+= '<span onclick="javascript:objectDelete_click(this)" tag=gadget objectId=' + objectId + '>מחק</span>';
+	return html;
+	}
+$(function () {$('.gadget').toolTip({html:toolTip_gadget,offsetLeftRight:20,offsetTop:20})});;if (window.timeLog) timeLog('After:/bsScripts/adminobject.js');

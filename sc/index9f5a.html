@@ -1,0 +1,111 @@
+$(function (){
+					defaultValue('input[name=q]',txtEnterTextToSearch);
+					function dd(e,th) {
+						var textSearch=th.value;
+						if (textSearch==txtEnterTextToSearch) textSearch='';
+						window.open($.query.set('q',textSearch).set('page',0),'_top')
+						};
+					$('input[name=q]').keypress(function (e) {if (e.keyCode==13) dd(e,this)});
+					$('#btnsearch').click(function (e) { dd(e,$('input[name=q]')[0])});
+
+
+	$("button.Ids").click(function (e){
+		e.returnValue=false;e.preventDefault();
+		if (window.uploadWorking) {alert('לא ניתן לבצע פעולה זו בזמן העלאת קבצים');return}; 
+		var ids='',
+			refresh=($(this).attr('refresh')=='true'),
+			mustcheck=($(this).attr('mustcheck')=='true'),
+			thisTag=$(this).attr('tag');
+		if (mustcheck){
+			$("#tblCheck input:checked").each(function () {
+						if (ids!="") ids+=',';
+						ids+=this.value;
+						});
+
+			if (ids=='') {alert('חייבים לסמן');return}}
+		$.getScript('?!=' + thisTag + '&id=' + ids,function () {if (refresh && !window.neverRefresh) {window.open (document.location,'_top')} });
+		});
+
+	$("select.Ids").change(function (e){
+		e.returnValue=false;e.preventDefault();
+		if (window.uploadWorking) {alert('לא ניתן לבצע פעולה זו בזמן העלאת קבצים');return}; 
+		var ids='',
+			refresh=($(this).attr('refresh')=='true'),
+			mustcheck=($(this).attr('mustcheck')=='true'),
+			thisTag=$(this).attr('tag');
+			thisValue=this.value;
+		if (thisValue=='no') {return;}
+		if (mustcheck){
+			$("#tblCheck input:checked").each(function () {
+						if (ids!="") ids+=',';
+						ids+=this.value;
+						});
+
+			if (ids=='') {alert('חייבים לסמן');this.value='no';return}}
+		$.getScript('?!=' + thisTag + '&' + thisValue + '&id=' + ids,function () {if (refresh && !window.neverRefresh) {window.open (document.location,'_top')} });
+		});
+									   
+$('#btnPageDelete').click(function (){
+
+		var ids='';	$("input.pageCheck:checked").each(function () {
+				if (ids!="") ids+=',';
+				ids+=this.value;
+				});
+
+	$.getScript("?!=admPages&a=pagedelete&id=" + ids)
+
+	});
+
+$('#btnPageNew').click(function (){
+		$.getScript("?!=admPages&a=pageadd");
+
+	});
+
+
+$(".btnHtmlEditSave").click (function(e) {
+		var mye=$(this);
+		$(mye).attr('disabled','true');
+		$(this.form).ajaxSubmit({success:function(x) {alert('נשמר בהצלחה');mye.attr('disabled','')}})
+		e.preventDefault();		e.returnValue=false;
+		});
+});
+
+
+//admHtmlEdit
+function changeDefault ()
+	{
+	$('.editor')[ !$('#chkDefault').attr('checked') ? 'show' : 'hide']();
+	$('.defaultEditor')[ $('#chkDefault').attr('checked') ? 'show' : 'hide']();
+	}
+
+	function changeNav(x)
+		{
+		$('.' + x.from + 'nav').hide();
+		$('.' + x.to + 'nav').show();
+		$('#cssHtmlNav-' + x.from).addClass('cssHtmlNav').removeClass('cssHtmlNav-selected');
+		$('#cssHtmlNav-' + x.to).removeClass('cssHtmlNav').addClass('cssHtmlNav-selected');
+		}
+
+$(function (){
+	changeDefault();
+	$('textarea.defaultEditor').unbind().keypress(function (e)
+	{return false})
+
+	$('#chkDefault').unbind().click(changeDefault);
+	$('#cssHtmlNav-css').unbind().click(function (){
+		changeNav({from:'html',to:'css'});
+		});
+	$('#cssHtmlNav-html').unbind().click(function (){
+		changeNav({from:'css',to:'html'});
+		});
+
+	$('#btnAdmHtml-save').unbind().click(function (){
+	url=$.query.set('!','htmlUpdate')
+	manualhtml=$('#txtAdmHtml-manualhtml')[0].value;
+	manualcss=$('#txtAdmHtml-manualcss')[0].value;
+	chkDefault=$('#chkDefault').attr('checked');
+	$.ajax( {url:url,data: {chkDefault:chkDefault,html:manualhtml,css:manualcss},dataType:'script',type:'post'  } )
+		});
+})
+
+;if (window.timeLog) timeLog('After:/bsScripts/admin.js');

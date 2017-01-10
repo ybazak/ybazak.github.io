@@ -1,0 +1,782 @@
+/**
+href=/a	-> #a
+href=a  -> a
+   Open the page in hash.
+1) call first time (from bookmark, or direct), call
+2) call when click on href */
+
+var tDelete='האם אתה בטוח כי ברצונך להמשיך במחיקה?';
+var documentWidth,documentInnerWidth, documentScrollWidth;
+var documentLeftScroll; //Need to add to all absolute left for IE-fix with left scrollbars
+
+if (!window.timeLog) window.timeLog= (function () {});
+timeLog('j-start');
+
+$(function() {$(document).triggerHandler('domchange');documentResize()});
+$(window).bind('resize',documentResize);
+
+var url,windowWidthWithMargin,windowWidthWithoutMargin,windowHeightWithMargin,windowHeightWithoutMargin,windowWidthWithMarginAndScroll,scrollWidth;
+function documentResize()
+{
+timeLog('documentResize:start');
+
+windowWidthWithMarginAndScroll=$(document.body).outerWidth();
+windowWidthWithMargin=$(window).width(); 
+scrollWidth=windowWidthWithMarginAndScroll-windowWidthWithMargin;
+windowHeightWithMargin=$(window).height();
+windowWidthWithoutMargin=$(window).width() - $(document.body).outerWidth({margin:true})+$(document.body).outerWidth();
+windowHeightWithoutMargin=$(window).height() - $(document.body).outerHeight({margin:true})+$(document.body).outerHeight();
+
+	documentWidth=windowWidthWithoutMargin;
+	documentInnerWidth=windowWidthWithoutMargin;
+	documentScrollWidth=0;
+	documentLeftScroll= ( documentScrollWidth>0 ? documentScrollWidth : 0);
+	timeLog('documentResize:end');
+}
+
+function windowopen(href)
+{//מעבר בין דפים, פונקצית עזר 
+//אולי פעם נעבור ישירות ללא שימוש בהיסטוריה
+//if (!$.cookie('noajax')) {$.historyLoad(href)} else {
+	var dfdsf;
+	window.open('?' + href,'_top')
+//};
+}
+
+//update href. called every time text change.
+$(document).bind('domchange.default',function() {
+		//אם היתה הי פעם בעיה בטעינת דף לטעון אותו כרגיל בלי AJAס
+//	if (!$.cookie('noajax')) $("a").not(".nohistory").click(historyHref );	
+
+	timeLog('userBefore');
+		$("td.user").toolTip({html:toolTipUser,place:'ul'});
+	timeLog('userAfter');
+
+
+	timeLog('helpBefore');
+		$("span.help").each(function () {
+			var $s=$(this)
+			ht=$s.html();
+			if (parseInt(ht))
+			{
+			}
+			else
+			{
+			timeLog('1');
+			//$s.html('<img src="/bsImg/icons/help.gif"');
+			$('<img src="/bsImg/icons/help.gif">').insertAfter($s).toolTip({binder:'click',html:'<span class=tt_help>' + ht + '</span>',place:'ul'});
+			//$s.css('display','inline');
+			timeLog('4');
+			}
+		});
+	timeLog('helpAfter');
+
+	/**Fix PNG
+	var badBrowser = (/MSIE ((5\.5)|6)/.test(navigator.userAgent) && navigator.platform == "Win32");
+	   if (badBrowser) {
+		 // get all pngs on page
+		 $('img[src$=.gif]').each(function() {
+		   if (!this.complete) {
+			 this.onload = function() { fixPng(this) };
+		   } else {
+			 fixPng(this);
+		   }
+		 });
+	   }
+	timeLog('afterFix-Png');*/
+	
+	// לתקן אינפוטים עבור אינטרנט אקספלורר
+	//$('input').add('textarea')
+	if ($.browser.msie) {
+	$('#inputfix1').add('#inputfix2').add("#inputfix3")
+		.each( function(){
+		var $t=$(this);
+		$tWidth=$t.css('width');
+		if ($tWidth.indexOf('%')>0 ) {
+			var wid=parseInt($tWidth)/100;
+			var newWid=( $t.parent().width()  * wid + ( wid==1 ? -5 : 0    )  );
+			$t.css('width',  newWid + 'px');
+			}
+		});}
+
+	timeLog('after Fix Inputs');
+	timeLog('forum-Start');
+
+/**
+
+	//בשדה תרגומים התחתון לא לעגל בכדי שנוכל לערוך
+	if (!$.cookie('noresample')) 
+	{
+		//$(".corner").not( $("#bottom").find('.corner') ).each(function (){ $(this).corner ( $(this).attr('corner'))  });
+	}
+
+	$("a.user").css("color","wheat");
+
+timeLog('2-start');
+$(".recImage").click(function ()
+
+	{
+	var file= $(this).attr('file');
+	if (file===undefined) file=$(this).attr('src');
+	window.open( file , '_top');
+	}
+	).css('cursor','hand').attr('title','Click to zoom');
+
+timeLog('3-start');
+$("span.deleteimage").add('img.deleteimage').click(function()
+	{
+	if (!confirm(tDelete)) return (false);
+	var tag=$(this).attr("tag");
+	$.get("/?todo=tables&a=deleteimage&id=" + tag, function(data){ tryData(data) ;});
+	return(false);
+	});
+
+timeLog('4-start');
+
+timeLog('5-start');
+$("div.border").hover(function (){$(this).css('border','1px solid #334455'); },function(){$(this).css('border','1px solid #ddeeff');});
+*/	
+	timeLog('Document data Change');
+	});
+
+
+
+$(function (){
+	$.ajaxSetup( {timeout:1000*60*10});
+
+	//Use in calendar.asp
+	$("#waitUntilLoadMessage").remove().clone();
+
+var loader=$("#loader");
+	loader.hide();
+	loader.ajaxStart (function() {$(this).show();	});
+	loader.ajaxStop(function() {	$(this).hide();	});
+	loader.ajaxError(function(m,a, b) {/**alert('def:Refresh and try again');$.cookie('noajax',true,{expires:7})*/ });
+//	loader.ajaxSend(function(m,a, b) {alert('Send-'+a.readyState)});
+//	loader.ajaxComplete(function(m,b) {if (1==1) alert('def:'+b); });
+
+
+$("#loader").css("left", $(window).width() /2-5 ).hide();
+
+$("#oldweb").click(whyExit);
+
+	$("span.deleterecord").live('click',function()
+	{
+	if (!confirm(txtConfirmDelete)) return(false);
+	var tag=$(this).attr("tag");
+	var str="?todo=tables&t=" + table_id + "&a=deleterecord&id=" + tag;
+	$.get(str, function(data){ tryData(data) ;});
+	return(false);
+	});
+
+});
+
+function tryData(inScript)
+{
+	try
+	{
+		eval(inScript);
+	}
+	catch (err)
+	{
+		alert('defjsError:' + inScript);
+	}
+}
+
+//שלח חוות דעתך
+function whyExit()
+{
+	$("span.whyexit").clone().remove();
+	var b='<form action=/ipOut.asp method=post style="width:500px;padding:20px;position:absolute;border:2px outset #FF9966;background-color:#FEEBD6" id=asdd><div style=font-size:15px;color:gray;float:left;cursor:hand onclick="javascript:$(\'#asdd\').remove();" >X</div>יש לך רעיונות לשיפור?</h1><br><center><textarea name=whylive style=width:100%;height:100px></textarea><br>אם אתה מעוניין בתשובה ציין שם ודואר-אלקטרוני<BR><input type=submit value=שלח /></center></form>';
+	var myexit=$(b).appendTo ($("#load"));
+	myexit.css('left',$(window).width()/2-myexit.width()/2)
+		.css('top',$(window).height()/2-myexit.height()/2+document.body.scrollTop);
+}
+
+var UserChooseLoad=false;
+var userChooseP;	//מחזיר את כל הנתונים של החלון {title,container,callback}
+var chooseUserDiv;
+
+
+// בתיבת בחירת המשתמשים, הגולש לחץ על משתמש
+function usUserClick(inX)
+{
+	cuCloseDo();
+	userChooseP.callback(inX);
+}
+
+//סגירת תיבת המשתמש
+function cuCloseDo(){blackScreenHide();chooseUserDiv.remove();UserChooseLoad=false; } 
+
+
+//חלון קופץ
+
+//הצגת חלון בחירת משתמש
+// title,container,callback 
+function defUserChoose(inP)
+{
+	if (UserChooseLoad) return(false);
+	UserChooseLoad=true;
+	userChooseP=inP;
+
+	var cont=$('#load');
+	if (inP.container) cont=inP.container;
+
+	var b='<div class=divchooseuser style="display:none;border:2px outset #FF9966;background-color:#FEEBD6;position:absolute"><div id=divcuTitle>@</div><div id=chooseUserDivList>!</div><button id=cuClose>סגור</button></div>';
+	chooseUserDiv=$(b).appendTo(cont);
+	$('#divcuTitle').html(inP.title).hide();
+	$("#cuClose").click( cuCloseDo );
+	$('#chooseUserDivList').load('?todo=user&a=chooseuser',defUserChooseLoaded );
+
+	$("#chooseUserDivList .pages a").die().live('click',function ()
+	{
+	$("#chooseUserDivList").load(this.href,defUserChooseLoaded)
+	return(false)
+	});
+	//$("#usChooseSearchbtn").add("die().live('click',function ()
+	//{
+	//return(false);	});
+
+}
+//רשימת המשתמשים נטענה
+function defUserChooseLoaded()
+	{
+		blackScreenShow();
+		UserChooseLoad=false;
+		$('#chooseuserSearch').ajaxForm({target:'#chooseUserDivList',success:defUserChooseLoaded});
+		chooseUserDiv.css('left',$(window).width()/2-chooseUserDiv.width()/2)	.css('top',$(window).height()/2-chooseUserDiv.height()/2+document.body.scrollTop).css('z-index',2).show();
+	}
+
+//מסך שחור בכדי להציג משהו מעליו צריך לעשות
+//z-index:1
+
+function blackScreenShow()
+{;
+//	blackScreenInterval=window.setInterval('document.body.scrollTop=0',10,'javascript');
+
+$('.divDisableElement').remove();
+var divDisable='<div class=divDisableElement style="-moz-opacity:0.1;filter:alpha(opacity=10);background-color:black;position:absolute;top:0px;left:0px;width:100px;height:100px;opacity:0.1">asa</div>';
+$(divDisable).appendTo($(document.body)).hide().css('top','0px').css('left','0px')
+.css('width',windowWidthWithMargin).css('height',$(document).height()).css('z-index',1).show();
+}
+function blackScreenHide(){/**window.clearInterval(blackScreenInterval);*/$('.divDisableElement').remove()}
+
+
+//חון להפעלת סקירפטים
+function showScript()
+{
+if ($('.myt').length>0) {$('.myt')[0].focus();return(false);}
+var divShowScript='<textarea name=dd dir=ltr class=myt style=text-align:left;width:100%;height:300px></textarea><button onclick="javascript:var d= ( $(\'.myt\').fieldValue());$.globalEval(\';\' +d);$(\'.myt\')[0].focus(); ">Run</button>';
+if ($("#load").length>0)
+	divShowScript=$(divShowScript).insertBefore($('#load'));
+else
+	divShowScript=$(divShowScript).prependTo(document.body);
+}
+
+
+
+var oldglobalEval=$.globalEval;
+function logGlobalEval()
+{
+	$.globalEval=function (x) {log(x);oldglobalEval(x)};
+	alert('globalEval');
+}
+
+$(document).bind('keydown','Alt+Ctrl+r',function() {window.open (document.location,'_top');});
+$(document).bind('keydown','Alt+m',function() {window.open ('?i=mail','_top');});
+$(document).bind('keydown','Alt+d',function() {window.open ('?todo=user&a=disconnect','_top');});
+$(document).bind('keydown','Alt+u',function() {window.open ('?i=user&a=connect','_top');});
+$(document).bind('keydown','Alt+x',function() {showScript();$('.myt')[0].focus();return(false)});
+
+function cookieSwitch(inx,more){$.cookie(inx, $.cookie(inx) ?  null:true , {path:'/',expires:7}  )}
+
+$(document).bind('keydown','Alt+1',function() {var x='showlnge';cookieSwitch(x);alert(x + ' ' + $.cookie(x)) });
+$(document).bind('keydown','Alt+2',function() { $('div#bottom').toggle(); });
+$(document).bind('keydown','Alt+3',function() {var x='showtimer';cookieSwitch(x);alert(x + ' ' + $.cookie(x)) });
+$(document).bind('keydown','Alt+4',function() {var x='noresample';cookieSwitch(x);alert(x + ' ' + $.cookie(x)) });
+$(document).bind('keydown','Alt+9',function() {var x='noajax';cookieSwitch(x);alert(x + ' ' + $.cookie(x)) });
+$(document).bind('keydown','Alt+0',function() {var x='likeeverybody';cookieSwitch(x);alert(x + ' ' + $.cookie(x)) });
+$(document).bind('keydown','Alt+l', logGlobalEval  );
+
+
+$(document).bind('keydown','Shift+t',function() {alert(timeLogStr)})
+$(document).bind('keydown','Shift+L',function() {lngeditLoad();})
+$(document).bind('keypress','Alt+A',function () {window.open ('?i=admin','_self')})
+
+
+
+
+function userContact(inID,inName) //(inID,inName)
+{
+	if(usID==0)
+			windowopen('i=messages&a=new&id=' + inID)
+	else
+	{
+//	if(inId.instant) mailNewChooseUser( {id: inId.userID,name:inId.name });
+//	newMessage( {instant:true, id: inID,name:inName}  );
+inName=inName.replace(/'/g,'!@!');
+	mailonload='newMessage( {instant:true, id: ' + inID + ',name: \'' + inName + '\' }  );';
+	$.cookie('mailonload',mailonload);
+	windowopen('i=mail');
+	}
+//	alert(inName);
+}
+
+function log(inX)
+{
+if ($(".log").length==0)
+//$(".log").remove();
+$('<textarea dir=ltr class=log style=width:100%;height:100px ></textarea>').prependTo(document.body).val(inX);
+else
+	$(".log").css('height','300px').val( $(".log").val() + inX);
+}
+
+function defSecurity(inText)
+{return (inText.replace(/on[a-zA-Z]+/gi,'no').replace(/javascript/gi,'jt'))}
+
+
+
+//ביטול בחירת טקסטים
+//disableSelection( $(document.body) );
+//enableSelection( $(document.body) );
+function disableSelection(selector){
+selector.bind('selectstart',function(){return false});
+selector.css('-moz-user-select',"none");
+}
+
+function enableSelection(selector){
+selector.css('-moz-user-select',"");
+selector.unbind('selectstart');
+}
+
+
+//Modal
+//חלון מודאלי פנימי
+//$('#divStatus').remove()
+//$(document.body).append('<div id=divStatus>a</div>')
+
+
+function status_show(inx)
+    {
+   // $('#divStatus').html(inx.html).show().css( {position:'absolute',top:} );;
+    }
+
+function status_hide(inx)
+    {
+    $('#divStatus').html('').hide()
+    }
+//status_show({html:'asd'})
+
+
+
+
+	function floatShow(inx)
+	{
+	//	if(inx.url)
+	//	else
+	//		var b='<div id=modaldiv>' + inx.html + '</div>';
+	if (!inx.modal) inx.type='modal';
+inx.modal=inx.type=='modal' ? true:false;
+inx.place=inx.type=='modal' ? 'center':'top';
+inx.id=inx.type || 'divModal';
+inx.type=inx.type || inx.id;
+
+$('#' + inx.id).remove();
+	var b='<div id=' + inx.id + ' class=floatWindow style="text-align:center;position:absolute;border:1px solid gray;padding:15px;background-color:white;z-index:2"><div id=floatContent></div>#buttonclose#</div>';
+	// b.replace('#buttonclose#','<center><button class=floatClose>סגור</button>');
+	b=b.replace('#buttonclose#','');
+		
+	//	modalWindow({html:'<b>asdsad</b>'});
+	//	$(b).appendTo(document.body);
+	//log(b);
+		$(document.body).append(b);
+
+		$(window).unbind('scroll.modal.' + inx.type).bind("scroll.modal." + inx.type ,function () {floatPlace(inx)});
+		if(inx.url)
+			{
+			var theText= ($.ajax({url:inx.url,async:false}).responseText);
+			$('#floatContent').html(theText);
+			}
+		else
+			{	
+			$('#floatContent').html(inx.html)	
+			}
+		floatLoaded(inx);
+		$("#floatContent .close").click(function () {floatClose(inx)});
+	}
+	
+	function floatLoaded(inx){
+               if (inx.modal) blackScreenShow();
+		$("#" + inx.type).css('left',$(window).width()/2-$("#" + inx.type).width()/2);
+		//$(document.body).css({height:$(window).height(),'overflow':'hidden'});
+		floatPlace(inx);
+		if (window.lngeditLoad) lngeditLoad();
+		//$(document.body).unbind("scroll.modal." + inx.type);
+	}
+	function floatClose(inx) 
+		{
+		blackScreenHide();
+                if (inx)
+		    {$("#" + inx.type).remove();$(document).unbind('scroll.modal.' + inx.type);}
+                else
+		    $(".floatWindow").remove();$(document).unbind('scroll.modal');
+		//$(document.body).css( {height:'',overflow:''});
+		}
+
+	function floatPlace(inx)
+	{
+        if (inx.place=='center')
+		{$("#" + inx.type).css('top',$(window).height()/2-$("#" + inx.type).height()/2+$(document.body).scrollTop())   }
+        else
+		{$("#" + inx.type).css('top',$(document.body).scrollTop()) }  
+	}
+
+//floatClose();
+//floatShow({html:'<b>asdsad</b>',type:'modal'});
+//floatShow({html:'<b>asdsfwfad</b>',type:'status'});
+//floatHide()
+
+//$('textarea').bind('click.a.c',function () {alert(1)})
+//.bind('click.a.d',function () {alert(2)})
+	function modalShow(inx)    {floatShow($.extend({type:'modal'},inx));  }
+	function modalClose() {floatClose({type:'modal'})}
+	function statusShow(inhtml,showHide) {floatShow({html:'<div>' + inhtml + (showHide ? '&nbsp;&nbsp;&nbsp; <span class="href close">הסתר</span>' : '') +  '</div>',type:'status'});}
+	function statusHide() {floatClose({type:'status'});}
+//statusShow('hye')
+
+//**********************
+
+
+
+//ChidaNew.html
+function isTextOnly(text)
+{
+	text=String(text);
+	return !text.replace(/[a-zA-Zא-ת ]/g,'').length;
+}
+//האם זה מספר טלפון
+function isPhone(e)
+{
+	e=String(e);
+	if (e.length==0) return (false);
+	e=e.replace('-','');
+	if (e.length!=9 && e.length!=10) return (false);
+	for(var i=0;i<e.length;i++)
+	{
+	if (isNaN(e.substring(i,i+1))) return(false)
+	}
+	return (true);
+}
+
+
+try{
+$.validator.addMethod("textonly", isTextOnly, "אין להכניס סימנים מיוחדים");
+$.validator.addMethod("phone", isPhone, "הכנס מספר טלפון תקין");} catch(e){}
+
+function usersBind()
+{
+
+$('.user').not('[tag=done]').each(function () {
+var $t=$(this);
+inx=$t.metadata();
+$t.attr('tag','done')
+.prepend('<img style="cursor:pointer;vertical-align:middle" src="/bsImg/user/' + (inx.f ? 'f':'' ) + 'user' + (inx.status ? 'on' : '') +  '.gif" />')
+.toolTip({html:'User on Over',place:'ul',ogen:'mouse'});
+//.click( function (e)
+//    {
+  //  console.log('here');
+//    var $t=$(this);
+  //  inx=$t.metadata();
+//    $.toolTip( inx.id);
+//    });
+
+});
+
+}
+
+
+
+//-------------------------------
+//---------Tool Tip
+//-------------------------------
+/**For testing it you need:
+	var a,aa,aaa;
+	if (!window.console) console={log:function () {}};
+	jQuery.fn.childOf=function(a){var b=this;return ($(b).parents().filter(function() { return this === $(a)[0]; }).length )}
+	function blackScreenShow()
+	{;
+	//	blackScreenInterval=window.setInterval('document.body.scrollTop=0',10,'javascript');
+	$('.divDisableElement').remove();
+	var divDisable='<div class=divDisableElement style="-moz-opacity:0.1;filter:alpha(opacity=10);background-color:black;position:absolute;top:0px;left:0px;width:100px;height:100px;opacity:0.1">asa</div>';
+	$(divDisable).appendTo($(document.body)).hide().css('top','0px').css('left','0px')
+	.css('width',windowWidthWithMargin).css('height',$(document).height()).css('z-index',1).show();
+	}
+	function blackScreenHide(){$('.divDisableElement').remove()}
+	var url,windowWidthWithMargin,windowWidthWithoutMargin,windowHeightWithMargin,windowHeightWithoutMargin,windowWidthWithMarginAndScroll,scrollWidth;
+	$(function () {
+		windowWidthWithMarginAndScroll=$(document.body).outerWidth();
+		windowWidthWithMargin=$(window).width(); 
+		scrollWidth=windowWidthWithMarginAndScroll-windowWidthWithMargin;
+		windowHeightWithMargin=$(window).height();
+		windowWidthWithoutMargin=$(window).width() - $(document.body).outerWidth({margin:true})+$(document.body).outerWidth();
+		windowHeightWithoutMargin=$(window).height() - $(document.body).outerHeight({margin:true})+$(document.body).outerHeight();
+
+		documentWidth=windowWidthWithoutMargin;
+		documentInnerWidth=windowWidthWithoutMargin;
+		documentScrollWidth=0;
+		documentLeftScroll= ( documentScrollWidth>0 ? documentScrollWidth : 0);
+
+		$('.my').toolTip({html:'<div>abc</div><button class=close>close</button>',binder:'click'});;
+		$('#gg').toolTip({html:'<div>gg tooltip</div>',place:'ur',binder:'mousemove'});;
+		$.toolTip({modal:true,place:'center',html:'<div style=background-color:gray;width:200px>hye firends<button class=close>close2</button></div>'});
+	});
+	*/
+var ttCounter=0;
+jQuery.extend({ 
+	toolTip:function(x) {
+	var ttElm,ttId;
+	var ttCompX1;
+	var ttCompX2;
+	var ttCompY1;
+	var ttCompY2;
+	x=$.extend(
+	{
+	offsetTop:0,
+	offsetLeftRight:0,
+	ogen:'screen',
+	modal:false
+	},x); 
+	if (x.ogen!='screen' && !x.place) x.place='ul';
+	if (x.ogen=='screen' && !x.place) x.place='center';
+
+	ttId=(new Date).getTime() + ttCounter++;
+	if (x.thisSelector)  $(x.thisSelector).die(x.binder + '.tt');
+	function toolTipClose()
+		{
+		console.log('tt close new' + ttId + ',' + x.ogenElement + ',' + x.thisSelector);
+		$('#tt' + ttId).remove();$(document).unbind('.tt' + ttId);
+		if (x.modal) blackScreenHide();
+		if (x.thisSelector) $(x.thisSelector).live(x.binder + '.tt',function (e) {x.e=e;x.ogenElement=this;$.toolTip(x)})
+		}
+	if (x.ogen=='element') {
+		x.ogenElement=x.ogenElement || x.e.target;
+		x.binder=x.binder || 'mousemove';
+		}
+	var farFromTop=5,farFromLeft=5;
+	if (x.binder=='mouseover') x.binder='mousemove';
+	if (x.binder=='move') x.binder='mousemove';
+	if (x.binder=='mouseclick') x.binder='click';
+        if (x.ogen=='element') //Check if this already exists
+		{
+			console.log('check exists ballons');
+		}
+        //if (typeof(x.html)=='function') x.html=x.html(x.ogenElement);
+
+	var theHtml;
+	theHtml=typeof(x.html)=='function' ? x.html(x.ogenElement) : x.html;
+	if (!x.html && x.url) x.html=$.ajax({url:x.url,async:false}).responseText;
+	ttElm=$("<div class=tooltip id=tt" + ttId + ">" + theHtml + "</div>").css({position:'absolute'}).appendTo(document.body);
+	if (x.modal) 
+		{
+		ttElm.css('z-index',2);
+		}
+	//ttElm.bind('click',function (e) {ttClickInsideTooltip=true });
+	$('.close',ttElm).bind('click',function () {toolTipClose()});
+//    $(document).bind("keydown.tt" + ttId,"esc",function (){toolTipClose();$(document).unbind('keydown.tooltip').unbind('mousemove.tooltip').unbind('click.tooltip')}) ;
+
+	if (x.binder=='click')
+		//ttTimeout=window.setTimeout(' $(document).bind("click.tooltip",function () {    ttElm.remove();ttLastOgen=3;$(document).unbind("click.tooltip") }); ',1000);
+		
+		$(document).bind("click.tt" + ttId,
+				function (e) {
+				//בגלל שעכשיו נעשתה לחיצה צריך לבדוק זהוא לא הבן של הטול טיפ
+				//וגם אם זוהי איננה הלחיצה שהציגה את הטולטיפ
+				if ( x.e.timeStamp==e.timeStamp  ||  $(e.currentTarget).childOf(ttElm) ||  e.target.id=='tt' + ttId) return; 
+	console.log( e.target.id + 'n' + ttId);
+				 toolTipClose();
+				});
+	if (x.binder=='mousemove')
+	$(document).bind("mousemove.tt" + ttId,function (e) {
+	console.log('move on document');
+		if ( x.e.timeStamp==e.timeStamp  ||  $(e.currentTarget).childOf(ttElm)) return; 
+		if (!(e.pageX>ttCompX1 && e.pageX<ttCompX2 && e.pageY>ttCompY1 && e.pageY<ttCompY2))
+			{
+			toolTipClose();
+			}
+		});
+
+	if (x.ogen=='element') 
+	{
+		$t=$(x.ogenElement);
+		var theTop=$t.offset().top;
+		if (x.place.indexOf('u')>=0) theTop=theTop-ttElm.outerHeight()+x.offsetTop; else theTop=theTop+$t.outerHeight()+x.offsetTop;
+		if (x.place.indexOf('r')>=0) var theLeftRight=$t.offset().left+$t.outerWidth()+x.offsetLeftRight;
+		if (x.place.indexOf('l')>=0) var theLeftRight=$t.offset().left-ttElm.outerWidth()+x.offsetLeftRight;
+	}
+	if (x.ogen=='mouse')
+		{
+		var theTop=x.e.pageY;
+		if (x.place.indexOf('u')>=0) theTop=theTop-ttElm.outerHeight()+x.offsetTop; 
+		var theLeftRight=x.e.pageX - scrollWidth+ (x.place.indexOf('l')>=0 ? -ttElm.outerWidth() : 0)+x.offsetLeftRight;
+		}
+	if (x.ogen!='screen')
+		{
+			if (theTop<document.body.scrollTop+farFromTop) theTop=document.body.scrollTop+farFromTop;
+			if (theTop+ttElm.height()>document.body.scrollTop+document.body.clientHeight-farFromTop) 
+				theTop=document.body.scrollTop+$(window).height()-ttElm.height()-farFromTop;
+			if (theLeftRight<farFromLeft) theLeftRight=farFromLeft+documentLeftScroll;
+			if (theLeftRight+ttElm.outerWidth()>documentInnerWidth-farFromLeft) theLeftRight=
+			documentInnerWidth-ttElm.width()-farFromLeft+documentLeftScroll;
+			var ttCompX=theLeftRight;
+			var ttCompY=theTop;
+			ttElm.css({'left':ttCompX,'top':ttCompY,'z-index':1000,zIndex:1000});
+			if (x.ogen=='element') 
+			{
+			if (x.place.indexOf('b')>=0) {ttCompY1=$t.offset().top;ttCompY2=ttCompY+ttElm.outerHeight()}
+			if (x.place.indexOf('u')>=0) {ttCompY1=ttElm.offset().top;ttCompY2= $t.offset().top+ $t.outerHeight()}
+			if (x.place.indexOf('r')>=0) {ttCompX1=$t.offset().left;ttCompX2=ttCompX+ttElm.outerWidth()}
+			if (x.place.indexOf('l')>=0) {ttCompX1=ttElm.offset().left;ttCompX2= $t.offset().left+ $t.outerWidth()}
+			}
+			else
+			{
+			//alert('לא נקבע מקום יציאה');ששששששששששששששששששש
+			}
+		}
+	if (x.ogen=='screen')
+		{
+		function floatPlace()
+		{
+			if (x.place=='center')
+			{ttElm.css('top',$(window).height()/2-ttElm.height()/2+$(document.body).scrollTop())   }
+			else
+			{ttElm.css('top',$(document.body).scrollTop()) }  
+		}
+		if (x.modal) blackScreenShow();
+		ttElm.css('left',$(window).width()/2-ttElm.width()/2);
+		floatPlace();
+		$(window).bind("scroll.modal" + ttId,floatPlace);
+		}
+
+	}
+	,
+	toolTipClose:function (ttId) {console.log('tt close');$('#tt' + ttId).remove();document.unbind('.tt' + ttId);  }});
+
+
+
+
+(function ($) {$.fn.toolTip=function (s) {
+//this.each(function ()  {alert(this.href)});
+s=$.extend({binder:'mousemove'},s);
+s.ogen=s.ogen || 'element';
+if (s.binder=='mouseclick') s.binder='click';
+var thisSelector=this.selector;
+this.die(s.binder + '.tt').live(s.binder + '.tt',function (ev) {$.toolTip($.extend({thisSelector:thisSelector,e:ev,ogen:'element',ogenElement:this},s))});
+}})(jQuery);
+
+//******************************
+//End Tooltip
+//******************************
+
+
+
+function toolTipUser(inE)
+{
+var ans;
+var inE=$(inE);
+var userID=inE.attr('UserID');var userName=inE.html();
+ans='<span class="tt_user">' +
+'<b>' + userName + '</b><div style="zoom:0;border-top:1px solid #D45407;margin-top:4px;padding-top:4px">'
++ '<a href="javascript:userContact(' + userID + ',\'' + userName.replace(/'/g,'!@!') + '\')">שלח הודעה</a>' +
+	'</div></span>';
+return (ans);
+}
+
+
+//**********************Default Value**************
+$.fn.defaultValue=function (inText)
+	{
+	var $this=this,
+		prevSet=this.data('defaultValue'),
+		theDef;
+	if (inText) this.data('defaultValue',inText);
+	theDef=(inText || prevSet);
+	if (prevSet) {this.unbind('focus.def').unbind('blur.def').unbind('select.def')}
+	this.bind('blur.def',function () {value=$this.val();if ($.trim(value)=='') 
+	$this.val(theDef).addClass('defaultValue')  });
+	this.bind('focus.def',function () {value=$this.val();if (value==theDef) $this.val('').removeClass('defaultValue')  });
+	this.bind('select.def',function () {value=$this.val();if (value==theDef) $this.val('').removeClass('defaultValue')  });
+
+	if (this.val()=='') this.val(theDef).addClass('defaultValue');
+	this.parents('form').unbind('submit.def').bind('submit.def',function () { $this.val($this.defVal())}  ) 
+	return(this);
+	}
+$.fn.defVal=function (inText)
+    {
+	if (! (inText==undefined))
+		{
+		this.val(inText);
+		this.trigger('blur');
+		return(this);
+		}
+	else
+		{
+		var val=this.val(),def=this.data('defaultValue');
+		if(val==def) return ('');
+		return (val) 
+		}
+    }
+function defaultValue(selector, defvalue) 
+    {
+    $(selector).defaultValue(defvalue)
+     }
+//****************************************
+
+var blank = null;
+ 
+ function fixPng(png) {
+	if (blank==null) {blank=new Image();blank.src = '/bsImg/8427.gif';}
+   // get src
+   var src = png.src;
+   // set width and height
+   if (!png.style.width) { png.style.width = $(png).width(); }
+   if (!png.style.height) { png.style.height = $(png).height(); }
+   // replace by blank image
+   png.onload = function() { };
+   png.src = blank.src;
+   png.style.visibility='visible';
+   // set filter (display original image)
+   png.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + src + "',sizingMethod='scale')";
+ }
+
+
+jQuery.fn.outerHTML = function(s) {
+return (s)
+? this.before(s).remove()
+: jQuery("<p>").append(this.eq(0).clone()).html();
+}
+
+jQuery.fn.childOf=function(a){var b=this;return ($(b).parents().filter(function() { return this === $(a)[0]; }).length )}
+
+timeLog('j-end');
+
+Date.prototype.zman=function(){return this.getDate() + '/' + (this.getMonth()+1) + '/' + this.getFullYear() + ' ' + this.time()};
+Date.prototype.date=function(){return this.getDate() + '/' + (this.getMonth()+1) + '/' + this.getFullYear() };
+Date.prototype.shortDate=function(){return this.getDate() + '/' + (this.getMonth()+1) };
+Date.prototype.time=function(){return this.getHours() + ':' + this.getMinutes() + ':' + this.getSeconds()};
+Date.prototype.url=function(){return 'd=' + this.getDate() + '&m=' + (this.getMonth()+1) + '&y=' + this.getFullYear()};
+
+function isHebrew(inString)
+    {
+    for(var i=0;i<inString.length;i++)
+        if (inString.charCodeAt(i)>=1488 && inString.charCodeAt(i)<=1514) return true
+    return false
+    }
+
+
+var scriptLoaded={};
+function loadScript(inFile)
+    {
+	$.getScript(inFile);
+	scriptLoaded[inFile]=true;
+    }
+;if (window.timeLog) timeLog('After:/bsScripts/default.js');
