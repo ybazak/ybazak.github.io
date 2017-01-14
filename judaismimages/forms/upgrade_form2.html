@@ -1,0 +1,476 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<script language="javascript" src=j.js></script>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1255" />
+
+<title>פרוייקט השות פרויקט</title>
+
+<style type="text/css">
+<!--
+.text1 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-style: normal;
+	color: #000066;
+	vertical-align: top;
+	display: block;
+	padding-right: 55px;
+	padding-left: 55px;
+	font-weight: bold;
+	text-align: right;
+	padding-top: 10px;
+	line-height: 15px;
+}
+body,td,th {
+	color: #000066;
+}
+.red_text {
+	font-size: 16px;
+	font-weight: bold;
+	color: #CC0000;
+	text-align: center;
+	line-height: 35px;
+}
+.red_text_line {
+	font-size: 16px;
+	font-weight: bold;
+	color: #CC0000;
+	text-decoration: line-through;
+}
+body {
+	background-color: #9397C6;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+.style1 {	color: #000099;
+	font-weight: bold;
+}
+.style3 {font-weight: bold}
+-->
+</style>
+<script type="text/javascript">
+$(function(){
+ $("[name=girsa]").unbind().click(function (e) {$('#dd').html($(this).attr('tag'));$('[name=price]')[0].value= $(this).attr('tag') 
+;
+});
+
+$("form").validate({errorLabelContainer:'#errorContainer',wrapper:'div'});
+});
+<!--
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+//-->
+</script>
+
+</head>
+
+<body onload="MM_preloadImages('../../images/caftorim/caftor_ma_d.gif')">
+<table border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#DBE1EE">
+  <tr>
+    <td align="center"><table width="63%" border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td colspan="5" align="center"><img src="../../images/spacer.gif" width="555" height="32" /></td>
+      </tr>
+      <tr valign="top">
+        <td colspan="2" align="right"><img src="../../images/spacer.gif" width="182" height="30" border="0" /></td>
+        <td align="center"><a href="#" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('Image22','','../../images/caftorim/caftor_ma_d.gif',1)"></a>
+          <table width="0" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td><img src="../../images/spacer.gif" alt="" width="50" height="30" border="0" /></td>
+              <td><img src="../../images/baner.jpg" alt="" width="370" height="130" /></td>
+              <td><img src="../../images/spacer.gif" alt="" width="50" height="30" border="0" /></td>
+            </tr>
+          </table></td>
+        <td width="162" align="right"><img src="../../images/logo_crl.gif" width="162" height="100" /></td>
+        <td width="20" align="right"><img src="../../images/spacer.gif" alt="" width="20" height="25" /></td>
+        </tr>
+      
+    </table></td>
+  </tr>
+  <tr>
+    <td align="center" valign="middle"><table border="0" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>
+          <form id="form1" name="form1" method="post" action="sendForm.asp">
+            <style>
+.error {white-space:nowrap;clear:both;color:black;text-align:right}
+          </style>
+            <table border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#DBE1EE">
+              <tr>
+                <td align="right"><table width="100%" border="0" align="center" cellpadding="4" cellspacing="4">
+                    <tr>
+                      <td colspan="2" align="right"><table border="0" cellspacing="3" cellpadding="3">
+                        <tr>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td>&nbsp;</td>
+                          <td><div align="right"><span class="style1">:טופס הזמנה מאובטח<br />
+                            </span>
+							</div></td>
+                          <td><img src="../../images/spacer.gif" width="20" height="33" /></td>
+                        </tr>
+                        <tr>
+                          <td valign="bottom"><img src="../../images/ssl_lock.gif" width="48" height="48" /></td>
+                          <td valign="bottom">טופס מאובטח</td>
+                          <td><img src="../../images/spacer.gif" alt="" width="40" height="30" border="0" /></td>
+                          <td><div align="right"><span class="style6">אנא מלא את פרטיך על מנת לבצע רכישה<bdo dir=rtl>.</bdo><br />
+כל פרטיך ישמרו אך ורק במערכת<bdo dir=rtl>.</bdo><br />
+<strong>חובה להכניס מספר סידורי של התקליטור </strong><br/>
+המספר הסידורי נמצא על תקליטור ההפעלה<br/>
+זמן אספקה - עד שבועיים<bdo dir=rtl>.</bdo><br/>
+ אפשרות למשלוח אקספרס עד הבית (בתאום טלפוני ובתוספת 20 ש"ח) – זמן אספקה עד 5 ימי עסקים<bdo dir=rtl>.</bdo><br/>
+
+ניתן לבצע הזמנה טלפונית או להעזר במילוי הטופס בטלפון: 077-7-513-613<bdo dir=rtl>.</bdo><br />
+<b>ניתן לשלם בתשלומים  ללא ריבית והצמדה</br>
+מינימום לתשלום אחד - 100 ש"ח<br/>
+ במידה ויבחר מספר תשלומים גבוה יותר - יתבצע מספר התשלומים המקסימלי המותר<br/>
+
+ דמי  טיפול ומשלוח - 20 ש&quot;ח<bdo dir=rtl>.</bdo></span></div></td>
+                          <td><img src="../../images/spacer.gif" width="20" height="33" /></td>
+                        </tr>
+                      </table>                        
+                      </td>
+                    </tr>
+                    
+                    <tr>
+                      <td colspan="2" align="center" valign="middle"><!--כאן יופיעו השגיאות-->
+                          <div id="errorContainer" align="center" style="background-color:#FF9598;border:1
+                          px solid black"> </div>
+						  			<!--כאן יופיעו השגיאות-->
+<div id=errorContainer align=right style="background-color:#FF9598;border:0
+px solid black">
+</div>
+                        <img src="../../images/hozez.jpg" alt="" width="700" height="5" /></td>
+                    </tr>
+                    <tr>
+                      <td align="left" valign="top"><table border="0" align="right" cellpadding="4" cellspacing="4">
+                          
+                          
+                          <tr align="right">
+                            <td align="center"><img src="../../images/spacer.gif" width="11" height="11" /></td>
+                          </tr>
+                          <tr align="right">
+                            <td align="center"><font size="+2"><strong>עדכון לגרסה 16</strong></font></td>
+                            </tr>
+                          
+                          <br>
+							<div dir=rtl align=right>
+															  
+                            <tr>
+							<td><div dir=rtl align=center>
+							<font size="+1"><strong>בחירת גרסה</strong></font><br/>
+							לחץ על הקישורים לרשימת הספרים והתכונות בכל שדרוג
+							<br/>
+								<div dir=rtl align=right>
+				
+				<input type=hidden name=price>
+				<div class=ver id="155" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="15plus-16plus upgrade" tag="390 (עד 3 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/15p_16.pdf" target="_blank">
+									עדכון מגרסה 15+ לגרסה 16+ ב – 370 ש"ח </a> <br/><br/>
+									 <br/>
+
+				</div>
+
+				<div class=ver id="145" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="14plus-16plus upgrade" tag="490 (עד 4 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/14p_16.pdf" target="_blank">
+									עדכון מגרסה 14+ לגרסה 16+ ב – 470 ש"ח </a> <br/><br/>
+									 <br/>
+
+				</div>
+				<div class=ver id="135" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="13plus-16plus upgrade" tag="590 (עד 5 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/13p_16.pdf" target="_blank">
+									עדכון מגרסה 13+ לגרסה 16+ ב – 570 ש"ח </a> <br/><br/>
+									 <br/>
+
+				</div>
+
+				<div class=ver id="125" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="12 plus to 16plus upgrade" tag="690 (עד 6 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+									עדכון מגרסה 12+ לגרסה 16+ ב – 670 ש"ח </a> <br/>
+				</div>
+
+				<div class=ver id="115" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="11 plus to 16plus upgrade" tag="690 (עד 6 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+									עדכון מגרסה 11+ לגרסה 16+ ב – 670 ש"ח </a> <br/>
+				</div>
+
+				<div class=ver id="105" style=display:none>
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="10plus-16plus upgrade" tag="690 (עד 6 תשלומים)" />				
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+									עדכון מגרסה 10+ ומטה לגרסה 16+ ב – 670 ש"ח </a> <br/><br/>
+									 <br/>
+		
+				</div>
+
+				<div class=ver id="15" style=display:none> 
+									<input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="15-16 upgrade" tag="390 (עד 3 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/15p_16.pdf" target="_blank">
+									עדכון מגרסה 15 לגרסה 16 ב - 370 ש"ח</a> <br/><br/>
+									<input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="15-16plus upgrade" tag="740 (עד 7 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/15p_16.pdf" target="_blank">
+								עדכון מגרסה 15 לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 720 ש"ח</a> <br/>
+
+				</div>     
+				
+                 <div class=ver id="14" style=display:none>    
+								 <input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="14-16 upgrade" tag="490 (עד 4 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/14p_16.pdf" target="_blank">
+									עדכון מגרסה 14 לגרסה 16 ב - 470 ש"ח</a> <br/><br/>
+									<input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="14-16plus upgrade" tag="840 (עד 8 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/14p_16.pdf" target="_blank">
+								עדכון מגרסה 14 לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 820 ש"ח</a> <br/>
+				</div>
+
+				 <div class=ver id="13" style=display:none>    
+								 <input selected class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="13-16 upgrade" tag="590 (עד 5 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/13p_16.pdf" target="_blank">
+									עדכון מגרסה 13 לגרסה 16 ב - 570 ש"ח</a> <br/><br/>
+									<input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="13-16plus upgrade" tag="940 (עד 9 תשלומים)" />
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/13p_16.pdf" target="_blank">
+								עדכון מגרסה 13 לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 920 ש"ח</a> <br/>
+				</div>
+				
+				
+
+				<div class=ver id="12" style=display:none>
+								 <input selected  type="radio" name="girsa" value="12-16 upgrade" tag="690 (עד 6 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 12 לגרסה 16 ב - 670 ש"ח</a><br/><br/>
+								 <input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="12 - 16plus" tag="1040 (עד 10 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 12 לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 1020 ש"ח
+								</a><br/>
+								
+								
+				</div>
+
+				<div class=ver id="11" style=display:none>
+								 <input selected  type="radio" name="girsa" value="11-16 upgrade" tag="690 (עד 6 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 11 לגרסה 16 ב - 670 ש"ח</a><br/><br/>
+								 <input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="11 - 16plus" tag="1040 (עד 10 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 11 לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 1020 ש"ח
+								
+								</a><br/>
+								
+								
+				</div>
+
+				<div class=ver id="new">
+				
+									<input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="16" tag="2010"/>
+									גרסה 16 במחיר 1990 ש&quot;ח <br />
+                                  <br />
+                                  <input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="16p" tag="2340" />
+                                  גרסה 16+ במחיר 2340 ש&quot;ח
+                               
+								
+							</div>
+
+
+				<div class=ver id="10" style=display:none>
+								 <input selected  type="radio" name="girsa" value="10 or less to 16" tag="690 (עד 6 תשלומים)" />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 10 ומטה לגרסה 16 ב - 670 ש"ח</a><br/><br/>
+								 <input class="required" title="חובה לבחור גירסה" type="radio" name="girsa" value="10 or less to 16 plus" tag="1040 (עד 10 תשלומים) " />
+								 
+									<a href="http://www.judaismshop.com/judaism/images/GUIDE_heb/11_15/12p_16.pdf" target="_blank">
+                                עדכון מגרסה 10 ומטה לגרסה 16+ (כולל האנציקלופדיה התלמודית) ב - 1020 ש"ח
+								</a><br/>
+								
+				</div>
+
+
+								</select>                               
+                              <br/>
+                                  </select>
+
+                           
+						  <font align="right" dir=rtl>
+						 
+						  
+סה&quot;כ לתשלום :<b><span id="dd"><i>לא נבחרה גרסה</i></span></b><br />
+                              המחיר כולל דמי טיפול אריזה ומשלוח</font><br/><br/>
+						   
+מספר סידורי של התקליטור
+<input name="siduri" type="text" id="siduri" tabindex="2" dir="rtl" size="11" maxlength="11" class="required" minlength="4" title="הכנס מספר סידורי" /></td></tr>
+							
+
+
+							</div>
+							<br>
+							</td>
+                          </tr>
+                          <tr align="right">
+                            <td align="center"><img src="../../images/spacer.gif" width="11" height="25" /></td>
+                          </tr>
+                          
+                          <tr align="right">
+                            <td>:הערות</td>
+                          </tr>
+                          <tr align="right">
+                            <td><textarea name="notes" cols="27" rows="4" id="notes"></textarea></td>
+                          </tr>
+                      </table></td>
+                      <td align="right" valign="top"><table border="0" align="right" cellpadding="3" cellspacing="3">
+                           <tr>
+                            <td align="right"><select onchange="$('.ver').hide();$('#' + (this.value)).show();" name="From_girsa" id="From_girsa " tabindex="15”">
+                                <option value="0" ><span aligh="rtl">לא נבחרה גרסה</span></option>
+								<option value="10" >&nbsp;גרסה 10 ומטה</option>
+								 <option value="105" >10+</option>
+                                <option value="11" >11</option>
+								  <option value="115" >11+</option>
+                                <option value="12">12</option>
+                                <option value="125">12+</option>
+                                <option value="13">13</option>
+                                <option value="135">13+</option>
+                                <option value="14">14</option>
+                                <option value="145">14+</option>
+                                <option value="15">15</option>
+                                <option value="155">15+</option>
+                                <option value="16">16</option>
+								<option value="new">רכישת תקליטור חדש</option>
+                              </select>                            </td>
+                            <td align="right">בחר את הגרסה שברשותך</td>
+                            </tr><tr>
+                            <td rowspan="8" align="right">&nbsp;</td>
+                            <td align="right"><input class="required" minlength="2" title="חובה להכניס שם מלא" name="name" type="text" id="name" tabindex="1" dir="rtl" size="21" maxlength="21" /></td>
+                            <td align="right">:שם</td>
+                            <td rowspan="8" align="right"><img src="../../images/spacer.gif" width="20" height="33" /></td>
+                          </tr>
+                          <tr>
+                            <td align="right"><input name="phone" type="text" id="phone" tabindex="2" dir="rtl" size="11" maxlength="11" class="required" minlength="9" title="הכנס טלפון" /></td>
+                            <td align="right">:טלפון</td>
+                            </tr>
+							 <tr>
+                            <td align="right"><input name="cell" type="text" id="cell" tabindex="3" dir="rtl" size="11" maxlength="11" minlength="9" title="הכנס מספר סלולרי תקין " /></td>
+                            <td align="right">:נייד<span class="style5"><font size="2"> - לא חובה</font>&nbsp</span></td>
+                            </tr>
+                          <tr>
+                            <td align="right"><input name="address" type="text" class="required" id="address" tabindex="14" title="חובה להכניס כתובת" size="21" maxlength="40"  /></td>
+                            <td align="right">:כתובת</td>
+                          </tr>
+                          <tr>
+                            <td align="right"><img src="../../images/spacer.gif" width="20" height="33" /><input name=visa1  
+							maxlength=16 minlength=8 title="הכנס את מספר כרטיס האשראי ללא מקפים ובאופן תקין")
+				  </td>
+                            <td align="right">:כרטיס אשראי</td>
+                            </tr>
+                          <tr>
+                            <td align="right"><select name="tashlumim" id="tashlumim" tabindex="10">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+								<option value="7">7</option>
+								<option value="8">8</option>
+								<option value="9">9</option>
+								<option value="10">10</option>
+                              </select>                            </td>
+                            <td align="right">:מספר תשלומים</td>
+                            </tr>
+                          <tr>
+                            <td align="right" ><table border="0" cellspacing="0" cellpadding="2">
+                                <tr>
+                                  <td><input name="valid" class="required" title="הכנס את תוקף כרטיס האשראי" type="text" id="textfield" tabindex="9" size="2" maxlength="5" minlength="3" /></td>
+                                </tr>
+                            </table></td>
+                            <td align="right">:תוקף</td>
+                            </tr>
+                          <tr>
+                            <td align="right"><input name="zehut" type="text" id="zehut" tabindex="11" size="11" maxlength="11" /></td>
+                            <td class="required" minlength="8" maxlength="9" title="הכנס מספר תעודת זהות" align="right">:תעודת זהות</td>
+                            </tr>
+                          <tr>
+                            <td align="right">&nbsp;</td>
+                            <!--class="required email"
+							title="חובה להכניס כתובת מייל תקינה" -->
+							<td align="right"><input name="e_mail" 
+							
+							type="text" id="e_mail" tabindex="14"  /></td>
+                            <td align="right">:<span class="style5"><font size="2"></font></span>e-mail</td>
+                            <td align="right">&nbsp;</td>
+                          </tr>
+                      </table></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" align="center" valign="top"><img src="../../images/hozez.jpg" width="750" height="5" /></td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" align="right" valign="top"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="3">
+                        <tr>
+                          <td height="62"><img src="../../images/spacer.gif" width="20" height="12" /></td>
+                          <td align="right"><input type="submit" name="submit" id="submit" value="שלח" tabindex="14" /></td>
+                          <td><img src="../../images/spacer.gif" width="10" height="22" /></td>
+                          <td><input type="reset" name="Reset" id="button" value="מחק" tabindex="15" /></td>
+                          <td><img src="../../images/spacer.gif" width="150" height="22" /><img src="../../images/spacer.gif" alt="" width="1" height="1" /><img src="../../images/spacer.gif" alt="" width="1" height="1" /></td>
+                          <td align="right"><img src="../../images/phone.gif" width="43" height="43" alt="phone"/></td>
+                          <td align="right">077-7-513-613</td>
+                          <td align="left">:משרד</td>
+                          <td align="right"><img src="../../images/spacer.gif" alt="" width="25" height="11" /></td>
+                          <td align="right"><span class="style3">052-6415963</span> </td>
+                          <td align="left"><span class="style3">:יוני מנהל מכירות</span></td>
+                          <td><img src="../../images/spacer.gif" width="20" height="22" /></td>
+                        </tr>
+                      </table></td>
+                    </tr>
+                </table></td>
+              </tr>
+            </table>
+          </form>
+       </td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4680676-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script>
+</body>
+</html>

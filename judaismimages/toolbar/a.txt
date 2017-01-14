@@ -1,0 +1,39 @@
+ Volume in drive F is temp
+ Volume Serial Number is 6C96-2591
+
+ Directory of F:\toolbar
+
+09/20/2010  03:13 PM    <DIR>          .
+09/20/2010  03:13 PM    <DIR>          ..
+09/20/2010  03:08 PM    <DIR>          2
+09/20/2010  03:13 PM                 0 a.txt
+09/19/2010  10:58 PM             1,933 articles.png
+09/19/2010  10:58 PM            17,341 banner.png
+09/19/2010  10:58 PM             1,680 buy.png
+09/19/2010  10:58 PM             2,054 contact_us.png
+09/19/2010  10:58 PM             1,107 en.png
+09/19/2010  10:58 PM             2,743 faq.png
+09/19/2010  10:58 PM             1,635 features.png
+09/19/2010  10:58 PM             2,597 history.png
+09/19/2010  10:58 PM             1,204 home.png
+09/20/2010  03:13 PM            17,056 new.html
+09/20/2010  02:59 PM            17,263 new.html.bak
+09/19/2010  10:58 PM             2,563 products.png
+09/19/2010  10:58 PM             5,795 sargel.htm
+09/19/2010  10:58 PM               409 sargel_r2_c10.png
+09/19/2010  10:58 PM               412 sargel_r2_c12.png
+09/19/2010  10:58 PM               518 sargel_r2_c14.png
+09/19/2010  10:58 PM               507 sargel_r2_c16.png
+09/19/2010  10:58 PM               346 sargel_r2_c18.png
+09/19/2010  10:58 PM               346 sargel_r2_c2.png
+09/19/2010  10:58 PM               417 sargel_r2_c20.png
+09/19/2010  10:58 PM               367 sargel_r2_c22.png
+09/19/2010  10:58 PM               381 sargel_r2_c4.png
+09/19/2010  10:58 PM               377 sargel_r2_c6.png
+09/19/2010  10:58 PM               521 sargel_r2_c8.png
+09/19/2010  10:58 PM                43 spacer.gif
+09/19/2010  10:58 PM             1,681 support.png
+09/19/2010  10:58 PM             2,730 what_in.png
+09/19/2010  10:58 PM             1,886 what_new.png
+              29 File(s)         85,912 bytes
+               3 Dir(s)  41,845,698,560 bytes free

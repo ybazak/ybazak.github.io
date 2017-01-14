@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+.TabbedPanels {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	clear: left;
+	width: 100%; /* IE Hack to force proper layout when preceded by a paragraph. (hasLayout Bug)*/
+}
+
+.TabbedPanelsTabGroup {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+	float: right;
+	display: block;
+	height: 30px;
+	width: 480px;
+}
+
+
+.TabbedPanelsTab {
+	float: right;
+	background-color: #FF9900;
+	list-style: none;
+	border-left: solid 1px #CCC;
+	border-bottom: solid 1px #999;
+	border-top: solid 1px #999;
+	border-right: solid 1px #999;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	cursor: pointer;
+	width: 130px;
+	margin-top: 0px;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	padding-top: 4px;
+	padding-right: 10px;
+	padding-bottom: 4px;
+	padding-left: 10px;
+	height: 20px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: normal;
+	
+	position: relative;
+	top: 1px;
+	
+}
+
+
+/* This selector is an example of how to change the appearnce of a tab button
+ * container as the mouse enters it. The class "TabbedPanelsTabHover" is
+ * programatically added and removed from the tab element as the mouse enters
+ * and exits the container.
+ */
+.TabbedPanelsTabHover {
+	background-color: #FFCC00;
+}
+
+
+.TabbedPanelsTabSelected {
+	background-color: #EEE;
+	border-bottom: 1px solid #EEE;
+}
+
+.TabbedPanelsTab a {
+	color: black;
+	text-decoration: none;
+}
+
+.TabbedPanelsContentGroup {
+	clear: both;
+	border-left: solid 1px #CCC;
+	border-bottom: solid 1px #CCC;
+	border-top: solid 1px #999;
+	border-right: solid 1px #999;
+	background-color: #EEE;
+
+}
+
+
+.TabbedPanelsContent {
+	padding: 4px;
+	height: 400px;
+	width: 480px;overflow-y:auto;
+
+}
+
+/*--FOR--AVODOA-------------*/
+
+.TabbedPanelsContentVisible {
+}
+
+/* Vertical Tabbed Panels
+ *
+ * The following rules override some of the default rules above so that the
+ * TabbedPanels widget renders with its tab buttons along the left side of
+ * the currently active content panel.
+ *
+ * With the rules defined below, the only change that will have to be made
+ * to switch a horizontal tabbed panels widget to a vertical tabbed panels
+ * widget, is to use the "VTabbedPanels" class on the top-level widget
+ * container element, instead of "TabbedPanels".
+ */
+
+/* This selector floats the TabGroup so that the tab buttons it contains
+ * render to the left of the active content panel. A border is drawn around
+ * the group container to make it look like a list container.
+ */
+.VTabbedPanels .TabbedPanelsTabGroup {
+	float: left;
+	width: 10em;
+	height: 20em;
+	background-color: #EEE;
+	position: relative;
+	border-top: solid 1px #999;
+	border-right: solid 1px #999;
+	border-left: solid 1px #CCC;
+	border-bottom: solid 1px #CCC;
+}
+
+/* This selector disables the float property that is placed on each tab button
+ * by the default TabbedPanelsTab selector rule above. It also draws a bottom
+ * border for the tab. The tab button will get its left and right border from
+ * the TabGroup, and its top border from the TabGroup or tab button above it.
+ */
+.VTabbedPanels .TabbedPanelsTab {
+
+	margin: 0px;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+
+}
+
+/* This selector disables the float property that is placed on each tab button
+ * by the default TabbedPanelsTab selector rule above. It also draws a bottom
+ * border for the tab. The tab button will get its left and right border from
+ * the TabGroup, and its top border from the TabGroup or tab button above it.
+ */
+.VTabbedPanels .TabbedPanelsTabSelected {
+	background-color: #EEE;
+	border-bottom: solid 1px #999;
+}
+
+/* This selector floats the content panels for the widget so that they
+ * render to the right of the tabbed buttons.
+ */
+.VTabbedPanels .TabbedPanelsContentGroup {
+	clear: none;
+	float: left;
+	padding: 0px;
+	width: 30em;
+	height: 20em;
+}
+.collapsibleContentWrapper{
+height:440px;}
